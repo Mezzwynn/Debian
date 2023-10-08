@@ -30,7 +30,7 @@ printf ${Y}"                Revision Putra Atmaja\n"${W}
 
 CHROOT=$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu
 
-proses_install_os(){
+install_ubuntu(){
 echo
 if [[ -d "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu" ]]; then
 echo ${G}"Existing Ubuntu installation found, Resetting it..."${W}
@@ -44,8 +44,8 @@ proot-distro install ubuntu
 fi
 }
 
-install_dekstop_tunggu_aja(){
-echo ${G}"Mungkin bakal agak lama sabar aja..."${W}
+install_desktop(){
+echo ${G}"Installing XFCE Desktop..."${W}
 cat > $CHROOT/root/.bashrc <<- EOF
 apt-get update
 apt install udisks2 -y
@@ -66,27 +66,27 @@ proot-distro login ubuntu
 rm -rf $CHROOT/root/.bashrc
 }
 
-penambahan_userr(){
-echo ${G}"User XII TKJ A PW:ghghgh..."${W}
+adding_user(){
+echo ${G}"Adding a User..."${W}
 cat > $CHROOT/root/.bashrc <<- EOF
 apt-get update
 apt-get install sudo wget -y
 sleep 2
-useradd -m -s /bin/bash xiitkja
-echo "xiitkja:ghghgh" | chpasswd
-echo "xiitkja  ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/ubuntu
+useradd -m -s /bin/bash ubuntu
+echo "ubuntu:ghghgh" | chpasswd
+echo "ubuntu  ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/ubuntu
 sleep 2
 exit
 echo
 EOF
 proot-distro login ubuntu
-echo "proot-distro login --user xiikja ubuntu" >> $PREFIX/bin/ubuntu
+echo "proot-distro login --user ubuntu ubuntu" >> $PREFIX/bin/ubuntu
 chmod +x $PREFIX/bin/ubuntu
 rm $CHROOT/root/.bashrc
 }
 
-tambahan(){
-echo ${G}"Bentar kok hehe"${W}
+install_extra(){
+echo ${G}"Installing Extra"${W}
 cat > $CHROOT/root/.bashrc <<- EOF
 echo "deb http://ftp.debian.org/debian stable main contrib non-free" >> /etc/apt/sources.list
 apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
@@ -100,8 +100,8 @@ proot-distro login ubuntu
 rm $CHROOT/root/.bashrc
 }
 
-fix_suara(){
-echo ${G}"Dikit Lagi..."${W}
+sound_fix(){
+echo ${G}"Fixing Sound..."${W}
 pkg update
 pkg install x11-repo -y ; pkg install pulseaudio -y
 cat > $HOME/.bashrc <<- EOF
@@ -131,15 +131,15 @@ wget -O $(find $CHROOT/home/ubuntu/.mozilla/firefox -name *.default-esr)/user.js
 final_banner(){
 banner
 echo
-echo ${G}"SELESAI DEH GAMPANG KAN?
+echo ${G}"Installion completed"
 echo
-echo "ubuntu  -  Buat mulai Ubuntu"
+echo "ubuntu  -  Buat mulai Ubuntu nya"
 echo
-echo "ubuntu  -  Password bawaan"
+echo "ghghgh  -  Password bawaan"
 echo
 echo "vncstart  -  Buat mulai vncserver nya, Execute inside ubuntu"
 echo
-echo "vncstop  -  Buat stop vncserver nya, Execute inside ubuntu"${W}
+echo "vncstop  -  To stop vncserver nya, Execute inside ubuntu"${W}
 rm -rf ~/install.sh
 }
 
