@@ -85,6 +85,33 @@ chmod +x $PREFIX/bin/ubuntu
 rm $CHROOT/root/.bashrc
 }
 
+install_theme(){
+echo ${G}"Installing Theme"${W}
+mv $CHROOT/home/ubuntu/.bashrc $CHROOT/home/ubuntu/.bashrc.bak
+echo "wget https://raw.githubusercontent.com/TecnicalBot/modded-distro/main/theme/theme.sh ; bash  theme.sh; exit" >> $CHROOT/home/ubuntu/.bashrc
+ubuntu
+rm $CHROOT/home/ubuntu/theme.sh*
+rm $CHROOT/home/ubuntu/.bashrc
+mv $CHROOT/home/ubuntu/.bashrc.bak $CHROOT/home/ubuntu/.bashrc
+cp $CHROOT/home/ubuntu/.bashrc $CHROOT/root/.bashrc
+sed -i 's/32/31/g' $CHROOT/root/.bashrc
+}
+
+install_extra(){
+echo ${G}"Installing Extra"${W}
+cat > $CHROOT/root/.bashrc <<- EOF
+echo "deb http://ftp.debian.org/debian stable main contrib non-free" >> /etc/apt/sources.list
+apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
+apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9
+apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv-keys 605C66F00D6C9793
+apt update
+apt install firefox-esr gedit -y
+exit
+EOF
+proot-distro login ubuntu
+rm $CHROOT/root/.bashrc
+}
+
 sound_fix(){
 echo ${G}"Fixing Sound..."${W}
 pkg update
@@ -110,6 +137,7 @@ EOF
 ubuntu
 rm $CHROOT/home/ubuntu/.bashrc
 mv $CHROOT/home/ubuntu/.bashrc.bak $CHROOT/home/ubuntu/.bashrc
+wget -O $(find $CHROOT/home/ubuntu/.mozilla/firefox -name *.default-esr)/user.js https://raw.githubusercontent.com/TecnicalBot/modded-distro/main/fixes/user.js
 }
 
 final_banner(){
