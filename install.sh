@@ -22,16 +22,15 @@ printf     "░░░██║░░░█████═╝░░░░░░�
 printf     "░░░██║░░░██╔═██╗░██╗░░██║  ██╔══██║\n"
 printf     "░░░██║░░░██║░╚██╗╚█████╔╝  ██║░░██║\n"
 printf     "░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░  ╚═╝░░╚═╝\n"${W}
-
-printf ${Y}"                Sc Technical Bot\n"${W}
-printf ${Y}"                Revision Putra Atmaja\n"${W}
+printf ${Y}"                By Technical Bot\n"${W}
+printf ${Y}"                Revision Putra Atmajal\n"${W}
 }
 
 
 
 CHROOT=$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu
 
-mulai_install_ubuntunya(){
+install_ubuntu(){
 echo
 if [[ -d "$PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu" ]]; then
 echo ${G}"Existing Ubuntu installation found, Resetting it..."${W}
@@ -45,8 +44,8 @@ proot-distro install ubuntu
 fi
 }
 
-install_desktop_mungkin_bakal_agak_lama(){
-echo ${G}"Proses install XFCE Desktop..."${W}
+install_desktop(){
+echo ${G}"Installing XFCE Desktop..."${W}
 cat > $CHROOT/root/.bashrc <<- EOF
 apt-get update
 apt install udisks2 -y
@@ -67,27 +66,27 @@ proot-distro login ubuntu
 rm -rf $CHROOT/root/.bashrc
 }
 
-nambahin_usernya_mezz_aja_ya_heher(){
-echo ${G}"Sabar proses nambah User..."${W}
+adding_user(){
+echo ${G}"Adding a User..."${W}
 cat > $CHROOT/root/.bashrc <<- EOF
 apt-get update
 apt-get install sudo wget -y
 sleep 2
-useradd -m -s /bin/bash mezz
-echo "mezz:ghghgh" | chpasswd
-echo "mezz  ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/ubuntu
+useradd -m -s /bin/bash ubuntu
+echo "ubuntu:ubuntu" | chpasswd
+echo "ubuntu  ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/ubuntu
 sleep 2
 exit
 echo
 EOF
 proot-distro login ubuntu
-echo "proot-distro login --user mezz ubuntu" >> $PREFIX/bin/ubuntu
+echo "proot-distro login --user ubuntu ubuntu" >> $PREFIX/bin/ubuntu
 chmod +x $PREFIX/bin/ubuntu
 rm $CHROOT/root/.bashrc
 }
 
-install_tambahan(){
-echo ${G}"Sabar ya hehe"${W}
+install_extra(){
+echo ${G}"Installing Extra"${W}
 cat > $CHROOT/root/.bashrc <<- EOF
 echo "deb http://ftp.debian.org/debian stable main contrib non-free" >> /etc/apt/sources.list
 apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
@@ -101,8 +100,8 @@ proot-distro login ubuntu
 rm $CHROOT/root/.bashrc
 }
 
-tinggal_fix_suara_nih(){
-echo ${G}"Tunggu lagi bentar ya..."${W}
+sound_fix(){
+echo ${G}"Fixing Sound..."${W}
 pkg update
 pkg install x11-repo -y ; pkg install pulseaudio -y
 cat > $HOME/.bashrc <<- EOF
@@ -132,15 +131,15 @@ wget -O $(find $CHROOT/home/ubuntu/.mozilla/firefox -name *.default-esr)/user.js
 final_banner(){
 banner
 echo
-echo ${G}"Selesai deh gitu aja GAMPANG KAN?"
+echo ${G}"Installion completed"
 echo
-echo "ubuntu  -  Buat nyalain Ubuntu"
+echo "ubuntu  -  To start Ubuntu"
 echo
-echo "ghghgh  -  Password bawaan nya"
+echo "ubuntu  -  default ubuntu password"
 echo
-echo "vncstart  -  Buat mulai vncserver nya, Execute inside ubuntu"
+echo "vncstart  -  To start vncserver, Execute inside ubuntu"
 echo
-echo "vncstop  -  Buat stop vncserver nya, Execute inside ubuntu"${W}
+echo "vncstop  -  To stop vncserver, Execute inside ubuntu"${W}
 rm -rf ~/install.sh
 }
 
