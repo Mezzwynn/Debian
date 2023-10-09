@@ -73,7 +73,7 @@ apt-get update
 apt-get install sudo wget -y
 sleep 2
 useradd -m -s /bin/bash ubuntu
-echo "ubuntu:ghghgh" | chpasswd
+echo "ubuntu:ubuntu" | chpasswd
 echo "ubuntu  ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/ubuntu
 sleep 2
 exit
@@ -83,6 +83,18 @@ proot-distro login ubuntu
 echo "proot-distro login --user ubuntu ubuntu" >> $PREFIX/bin/ubuntu
 chmod +x $PREFIX/bin/ubuntu
 rm $CHROOT/root/.bashrc
+}
+
+install_theme(){
+echo ${G}"Installing Theme"${W}
+mv $CHROOT/home/ubuntu/.bashrc $CHROOT/home/ubuntu/.bashrc.bak
+echo "wget https://raw.githubusercontent.com/TecnicalBot/modded-distro/main/theme/theme.sh ; bash  theme.sh; exit" >> $CHROOT/home/ubuntu/.bashrc
+ubuntu
+rm $CHROOT/home/ubuntu/theme.sh*
+rm $CHROOT/home/ubuntu/.bashrc
+mv $CHROOT/home/ubuntu/.bashrc.bak $CHROOT/home/ubuntu/.bashrc
+cp $CHROOT/home/ubuntu/.bashrc $CHROOT/root/.bashrc
+sed -i 's/32/31/g' $CHROOT/root/.bashrc
 }
 
 install_extra(){
@@ -130,8 +142,6 @@ wget -O $(find $CHROOT/home/ubuntu/.mozilla/firefox -name *.default-esr)/user.js
 
 final_banner(){
 banner
-echo
-echo ${G}"Installion completed"
 echo
 echo "ubuntu  -  Buat mulai Ubuntu nya"
 echo
