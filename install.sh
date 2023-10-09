@@ -86,7 +86,7 @@ rm $CHROOT/root/.bashrc
 }
 
 install_theme(){
-echo ${G}"Installing Theme"${W}
+echo ${G}"Dikit Lagi Sabar Y"${W}
 mv $CHROOT/home/ubuntu/.bashrc $CHROOT/home/ubuntu/.bashrc.bak
 echo "wget https://raw.githubusercontent.com/TecnicalBot/modded-distro/main/theme/theme.sh ; bash  theme.sh; exit" >> $CHROOT/home/ubuntu/.bashrc
 ubuntu
@@ -98,7 +98,7 @@ sed -i 's/32/31/g' $CHROOT/root/.bashrc
 }
 
 install_extra(){
-echo ${G}"Installing Extra"${W}
+echo ${G}"Hampir Selesai"${W}
 cat > $CHROOT/root/.bashrc <<- EOF
 echo "deb http://ftp.debian.org/debian stable main contrib non-free" >> /etc/apt/sources.list
 apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
@@ -113,7 +113,7 @@ rm $CHROOT/root/.bashrc
 }
 
 sound_fix(){
-echo ${G}"Fixing Sound..."${W}
+echo ${G}"Terakhir Nih..."${W}
 pkg update
 pkg install x11-repo -y ; pkg install pulseaudio -y
 cat > $HOME/.bashrc <<- EOF
@@ -145,7 +145,7 @@ banner
 echo
 echo "ubuntu  -  Buat mulai Ubuntu nya"
 echo
-echo "ghghgh  -  Password bawaan"
+echo "ubuntu  -  Password bawaan"
 echo
 echo "vncstart  -  Buat mulai vncserver nya, Execute inside ubuntu"
 echo
