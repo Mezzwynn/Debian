@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/sh
+#!/bin/bash
 
 #Adding colors
 R="$(printf '\033[1;31m')"
